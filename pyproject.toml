@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "neural-networks"
+version = "0.1.0"
+description = ""
+authors = ["Sergey Okunkov <makdaf007@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+lxml = "^4.9.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
