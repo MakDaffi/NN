@@ -1,0 +1,6 @@
+{
+    "layer1.sigmoid": [[1, 1, 1], [2, 2, 2]],
+    "layer2.linear": [[1, 1], [2, 2], [3, 3]],
+    "layer3.softmax": null,
+    "layer4.argmax": null
+}
