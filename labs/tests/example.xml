@@ -1,22 +1,21 @@
 <graph>
-  <vertex>v_2</vertex>
-  <vertex>v_1</vertex>
   <vertex>v_4</vertex>
   <vertex>v_3</vertex>
-  <vertex>v_5</vertex>
+  <vertex>v_2</vertex>
+  <vertex>v_1</vertex>
   <arc>
     <from>v_1</from>
     <to>v_2</to>
     <order>1</order>
   </arc>
   <arc>
+    <from>v_1</from>
+    <to>v_4</to>
+    <order>1</order>
+  </arc>
+  <arc>
     <from>v_2</from>
     <to>v_3</to>
     <order>2</order>
-  </arc>
-  <arc>
-    <from>v_1</from>
-    <to>v_4</to>
-    <order>3</order>
   </arc>
 </graph>

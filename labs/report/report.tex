@@ -1,0 +1,393 @@
+\documentclass[bachelor, och, report]{shiza}
+% параметр - тип обучения - одно из значений:
+%    spec     - специальность
+%    bachelor - бакалавриат (по умолчанию)
+%    master   - магистратура
+% параметр - форма обучения - одно из значений:
+%    och   - очное (по умолчанию)
+%    zaoch - заочное
+% параметр - тип работы - одно из значений:
+%    referat    - реферат
+%    coursework - курсовая работа (по умолчанию)
+%    diploma    - дипломная работа
+%    pract      - отчет по практике
+% параметр - включение шрифта
+%    times    - включение шрифта Times New Roman (если установлен)
+%               по умолчанию выключен
+\usepackage{subfigure}
+\usepackage{tikz,pgfplots}
+\pgfplotsset{compat=1.5}
+\usepackage{float}
+
+%\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+%\titleformat{\paragraph}
+%{\normalfont\normalsize}{\theparagraph}{1em}{}
+%\titlespacing*{\paragraph}
+%{35.5pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\titleformat{\paragraph}[block]
+{\hspace{1.25cm}\normalfont}
+{\theparagraph}{1ex}{}
+\titlespacing{\paragraph}
+{0cm}{2ex plus 1ex minus .2ex}{.4ex plus.2ex}
+
+% --------------------------------------------------------------------------%
+
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{tempora}
+
+\usepackage[sort,compress]{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{listingsutf8}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage[english,russian]{babel}
+
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{url}
+
+\usepackage{underscore}
+\usepackage{setspace}
+\usepackage{indentfirst} 
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{minted}
+
+\newcommand{\eqdef}{\stackrel {\rm def}{=}}
+\newcommand{\specialcell}[2][c]{%
+\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\renewcommand\theFancyVerbLine{\small\arabic{FancyVerbLine}}
+
+\newtheorem{lem}{Лемма}
+
+\begin{document}
+
+% Кафедра (в родительном падеже)
+\chair{теоретических основ компьютерной безопасности и криптографии}
+
+% Тема работы
+\title{Практические задания по курсу <<Нейронные сети>>}
+
+% Курс
+\course{5}
+
+% Группа
+\group{531}
+
+% Факультет (в родительном падеже) (по умолчанию "факультета КНиИТ")
+\department{факультета КНиИТ}
+
+% Специальность/направление код - наименование
+%\napravlenie{09.03.04 "--- Программная инженерия}
+%\napravlenie{010500 "--- Математическое обеспечение и администрирование информационных систем}
+%\napravlenie{230100 "--- Информатика и вычислительная техника}
+%\napravlenie{231000 "--- Программная инженерия}
+\napravlenie{100501 "--- Компьютерная безопасность}
+
+% Для студентки. Для работы студента следующая команда не нужна.
+% \studenttitle{Студентки}
+
+% Фамилия, имя, отчество в родительном падеже
+\author{Окуньков Сергей Викторович}
+
+% Заведующий кафедрой
+% \chtitle{} % степень, звание
+% \chname{}
+
+%Научный руководитель (для реферата преподаватель проверяющий работу)
+\satitle{доцент} %должность, степень, звание
+\saname{И. И. Слеповичев}
+
+% Руководитель практики от организации (только для практики,
+% для остальных типов работ не используется)
+% \patitle{к.ф.-м.н.}
+% \paname{С.~В.~Миронов}
+
+% Семестр (только для практики, для остальных
+% типов работ не используется)
+%\term{8}
+
+% Наименование практики (только для практики, для остальных
+% типов работ не используется)
+%\practtype{преддипломная}
+
+% Продолжительность практики (количество недель) (только для практики,
+% для остальных типов работ не используется)
+%\duration{4}
+
+% Даты начала и окончания практики (только для практики, для остальных
+% типов работ не используется)
+%\practStart{30.04.2019}
+%\practFinish{27.05.2019}
+
+% Год выполнения отчета
+\date{2023}
+
+\maketitle
+
+% Включение нумерации рисунков, формул и таблиц по разделам
+% (по умолчанию - нумерация сквозная)
+% (допускается оба вида нумерации)
+% \secNumbering
+
+%-------------------------------------------------------------------------------------------
+
+\tableofcontents
+
+\section{Задание 1: Создание ориентированного графа}
+    \subsection{Описание}
+
+        \textbf{На входе:} текстовый файл с описанием графа в виде списка дуг:
+        \[(a_1, b_1, n_1), (a_2, b_2, n_2), \dots, (a_k, b_k, n_k),\] где $a_i$
+        "--- начальная вершина дуги $i$, $b_i$ "--- конечная вершина дуги $i$,
+        $n_i$ "--- порядковый номер дуги в списке всех заходящих в вершину $b_i$
+        дуг.
+
+        \textbf{На выходе:} Ориентированный граф с именованными вершинами и
+        линейно упорядоченными дугами (в соответствии с порядком из текстового
+        файла). Сообщение об ошибке в формате файла, если ошибка присутствует.
+
+    \subsection{Пример исполнения программы}
+
+        Содержимое файла `example.txt`:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            (v_1, v_2, 1), (v_2, v_3, 2), (v_1, v_4, 1)
+        \end{minted}
+
+        Запускаем программу с помощью консоли следующим образом:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            python3 task1.py --input_file tests/example.txt --output_file tests/example.xml
+        \end{minted}
+
+        В качестве результата получаем файл `example.xml` со следующим содержимым:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            <graph>
+                <vertex>v_4</vertex>
+                <vertex>v_3</vertex>
+                <vertex>v_2</vertex>
+                <vertex>v_1</vertex>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_2</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_4</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_2</from>
+                    <to>v_3</to>
+                    <order>2</order>
+                </arc>
+                </graph>         
+        \end{minted}
+
+\section{Задание 2: Создание функции по графу}
+    \subsection{Описание}
+
+        \textbf{На входе:} ориентированный граф с именованными вершинами как
+        описано в задании 1.
+
+        \textbf{На выходе:} линейное представление функции, реализуемой графом в
+        префиксной скобочной записи: $$A_1(B_1(C_1(\dots), \dots, C_m(\dots)),
+        \dots, B_n(\dots))$$
+
+    \subsection{Пример исполнения программы}
+
+    Содержимое файла `example.xml`:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            <graph>
+                <vertex>v_4</vertex>
+                <vertex>v_3</vertex>
+                <vertex>v_2</vertex>
+                <vertex>v_1</vertex>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_2</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_4</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_2</from>
+                    <to>v_3</to>
+                    <order>2</order>
+                </arc>
+            </graph>      
+        \end{minted}
+
+        Запускаем программу с помощью консоли следующим образом:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            python3 task2.py --input_file tests/example.xml --output_file tests/example2.txt
+        \end{minted}
+
+        В качестве результата получаем файл `example2.txt`' со следующим содержимым:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            v_1(v_2(v_3), v_4)
+        \end{minted}
+
+\section{Задание 3: Вычисление значение функции на графе}
+    \subsection{Описание}
+
+        \textbf{На входе:}
+        \begin{enumerate}
+            \item Текстовый файл с описанием графа в виде списка дуг (смотри задание 1).
+            \item Текстовый файл соответствий арифметических операций именам вершин:
+            
+                \begin{center}
+                    $a_1 : 1\text{-я операция}$ \\
+                    $a_2 : 2\text{-я операция}$ \\
+                    $\dots$ \\
+                    $a_n : n\text{-я операция}$, \\
+                \end{center}
+                где $a_i$ -- имя $i$-й вершины, $i$-я операция -- символ операции, соответствующий вершине $a_i$.
+                
+                Допустимы следующие символы операций: \\
+                $+$ -- cумма значений,\\
+                $*$ -- произведение значений,\\
+                $exp$ -- экспонирование входного значения,\\
+                число -- любая числовая константа.\\		
+        \end{enumerate}
+
+        \textbf{На выходе:} значение функции, построенной по графу и файлу.
+        
+
+    \subsection{Пример исполнения программы}
+
+        Содержимое `example.txt` и `example.json`:
+
+        Содержимое файла `example.xml`:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            <graph>
+                <vertex>v_4</vertex>
+                <vertex>v_3</vertex>
+                <vertex>v_2</vertex>
+                <vertex>v_1</vertex>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_2</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_1</from>
+                    <to>v_4</to>
+                    <order>1</order>
+                </arc>
+                <arc>
+                    <from>v_2</from>
+                    <to>v_3</to>
+                    <order>2</order>
+                </arc>
+            </graph>      
+        \end{minted}
+
+
+        \textbf{example.json}
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            {
+                "v_1": "+",
+                "v_2": "exp",
+                "v_3": 5,
+                "v_4": 8
+            }
+        \end{minted}
+        
+        Запускаем программу с помощью консоли следующим образом:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            python3 task3.py --input_file tests/example.xml --output_file tests/example3.txt --nodes_to_func_file tests/example.json
+        \end{minted}
+
+        В качестве результата получаем файл `example3.txt` со следующим содержимым:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            [156.4131591025766]
+        \end{minted}
+
+\section{Задание 4: Построение многослойной нейронной сети}
+    \subsection{Описание}
+
+        \textbf{На входе:}
+            \begin{enumerate}
+                \item Файл с набором матриц весов межнейронных связей:
+                \begin{center}
+                    $M_1 : [a_{11}^1, a_{12}^1, \dots, a_{1n_1}^1], \dots, [a_{m_11}^1, a_{m_12}^1, \dots ,a_{m_1n_1}^1]$ \\
+                    $M_2 : [a_{11}^2, a_{12}^2, \dots, a_{1n_2}^2], \dots, [a_{m_21}^2, a_{m_22}^2, \dots ,a_{m_2n_2}^2]$\\
+                    $\dots$\\
+                    $M_p : [a_{11}^p, a_{12}^p, \dots, a_{1n_p}^p], \dots, [a_{m_p1}^p, a_{m_p2}^p, \dots,a_{m_pn_p}^p]$ \\                  
+                \end{center}
+                \item Файл с входным вектором в формате:
+                \begin{center}
+                    $x_1, x_2, \dots, x_k$.
+                \end{center}
+            \end{enumerate}
+
+        \textbf{На выходе:}
+            \begin{enumerate}
+                \item Сериализованная многослойная нейронная сеть с полносвязной
+                межслойной структурой. Файл с выходным вектором -- результатом
+                вычислений НС в формате: 
+                \begin{center}
+                    $y_1, y_2, \dots, y_k.$                
+                \end{center}
+                \item Сообщение об ошибке, если в формате входного вектора или
+                файла описания НС допущена ошибка.
+            \end{enumerate}
+
+
+    \subsection{Пример исполнения программы}
+
+        Содержимое файлов `nn.json` и `X.txt`:
+
+        \textbf{X.txt}
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            1., 2., 3.
+        \end{minted}
+        
+        \textbf{nn.json}
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            {
+                "layer1.sigmoid": [[1, 1, 1], [2, 2, 2]],
+                "layer2.linear": [[1, 1], [2, 2], [3, 3]],
+                "layer3.softmax": null,
+                "layer4.argmax": null
+            }
+        \end{minted}
+
+        Запускаем программу с помощью консоли следующим образом:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            python3 task4.py --input_file tests/X.txt --weights_file tests/nn.json --output_file tests/Y.txt
+        \end{minted}
+
+        В качестве результата получаем файл `Y.txt` со следующим содержимым:
+
+        \begin{minted}[breaklines,fontsize=\small]{text}
+            {"Y": 2}
+        \end{minted}
+
+\end{document}
